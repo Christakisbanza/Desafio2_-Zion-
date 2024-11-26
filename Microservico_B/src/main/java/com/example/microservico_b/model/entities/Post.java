@@ -1,6 +1,5 @@
 package com.example.microservico_b.model.entities;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
