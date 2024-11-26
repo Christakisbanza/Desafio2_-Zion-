@@ -3,8 +3,8 @@ Spring Desafio 2
 
 Integrantes:
 
-André Colossi Branco
-Christakis Cyrile Tsikos Banza
-Felipe Volz Tadiello
-Pedro Antonio Da Silveira Junior
-Natanael do Nascimento Freire
+André Colossi Branco <br>
+Christakis Cyrile Tsikos Banza <br>
+Felipe Volz Tadiello <br>
+Pedro Antonio Da Silveira Junior <br>
+Natanael do Nascimento Freire <br>
