@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Post {
 
     @Id
-    private Long id;
+    private String id;
     private String title;
     private String description;
     private String body;
