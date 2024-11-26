@@ -15,4 +15,10 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
+
+    public void deletePost(Long id) {
+        postRepository.deleteById(id);
+
+    }
+
 }
