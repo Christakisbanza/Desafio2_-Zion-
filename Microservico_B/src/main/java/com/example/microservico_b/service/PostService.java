@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.microservico_b.model.entities.Post;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.yaml.snakeyaml.reader.StreamReader;
 
 @Service
 public class PostService {
@@ -23,7 +24,7 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         postRepository.deleteById(id);
     }
 
