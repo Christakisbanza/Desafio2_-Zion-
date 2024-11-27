@@ -76,4 +76,9 @@ public class PostController implements Serializable {
             return new ResponseEntity("Query Error", HttpStatusCode.valueOf(504));
         }
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getById(@PathVariable int id) {
+        Post post = postService.buscaPorId(id);
+        return ResponseEntity.ok(post);
+    }
 }

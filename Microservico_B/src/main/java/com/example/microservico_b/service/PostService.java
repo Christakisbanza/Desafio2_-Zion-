@@ -49,4 +49,9 @@ public class PostService {
     public void delete(int id) {
         postRepository.deleteById(id);
     }
+    public Post buscaPorId(int id) {
+        return postRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Post not found")
+        );
+    }
 }
