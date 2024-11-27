@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class PostResponseDto {
-    private String id;
+    private Long id;
     private String title;
-    private String description;
+    private String body;
 }

@@ -18,9 +18,9 @@ public class PostService {
     private PostRepository postRepository;
 
     public List<Post> syncData() {
-        Integer maxId = postRepository.findAll()
+        Long maxId = postRepository.findAll()
                 .stream()
-                .mapToInt(Post::getId)
+                .mapToLong(Post::getId)
                 .max()
                 .orElse(0);
 
@@ -35,9 +35,9 @@ public class PostService {
     }
 
     public Post save(Post post){
-        Integer maxId = postRepository.findAll()
+        long maxId = postRepository.findAll()
                 .stream()
-                .mapToInt(Post::getId)
+                .mapToLong(Post::getId)
                 .max()
                 .orElse(0);
 
@@ -46,7 +46,7 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public void delete(int id) {
+    public void delete(Long id) {
         postRepository.deleteById(id);
     }
 }

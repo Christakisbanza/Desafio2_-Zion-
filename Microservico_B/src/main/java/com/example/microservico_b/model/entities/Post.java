@@ -15,8 +15,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Post {
 
     @Id
-    private Integer id;
-    private Integer userId;
+    private Long id;
+    private Long userId;
     private String title;
     private String body;
 }

@@ -68,7 +68,7 @@ public class PostController implements Serializable {
 
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePost(@PathVariable int id){
+    public ResponseEntity<?> deletePost(@PathVariable Long id){
         try {
             postService.delete(id);
             return ResponseEntity.ok("Deleted with Success");
