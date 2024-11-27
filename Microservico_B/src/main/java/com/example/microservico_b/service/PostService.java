@@ -54,4 +54,8 @@ public class PostService {
                 () -> new RuntimeException("Post not found")
         );
     }
+
+    public Post update(Post post) {
+       return postRepository.save(post);
+    }
 }
