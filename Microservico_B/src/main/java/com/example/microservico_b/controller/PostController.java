@@ -1,5 +1,6 @@
 package com.example.microservico_b.controller;
 
+import com.example.microservico_b.client.JsonPlaceholderClient;
 import com.example.microservico_b.controller.dto.PostCreateDto;
 import com.example.microservico_b.controller.dto.PostResponseDto;
 import com.example.microservico_b.controller.exception.ErrorMessage;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -26,6 +28,15 @@ public class PostController implements Serializable {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private JsonPlaceholderClient jsonPlaceholderClient;
+
+    @GetMapping
+    public List<Post> listarProdutos() {
+        return jsonPlaceholderClient.getPosts();
+    }
+
 
     @PostMapping("/sync-data")
     public List<Post> syncData() {
@@ -68,9 +79,9 @@ public class PostController implements Serializable {
 
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePost(@PathVariable int id){
+    public ResponseEntity<?> deletePost(@PathVariable Integer id){
         try {
-            postService.delete(id);
+            postService.deletePost(id);
             return ResponseEntity.ok("Deleted with Success");
         }catch(Exception ex) {
             return new ResponseEntity("Query Error", HttpStatusCode.valueOf(504));

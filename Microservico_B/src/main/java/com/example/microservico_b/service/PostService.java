@@ -2,6 +2,7 @@ package com.example.microservico_b.service;
 
 import com.example.microservico_b.client.JsonPlaceholderClient;
 import com.example.microservico_b.repository.PostRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.microservico_b.model.entities.Post;
@@ -46,7 +47,7 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public void delete(int id) {
+    public void deletePost(Integer id) {
         postRepository.deleteById(id);
     }
 }
