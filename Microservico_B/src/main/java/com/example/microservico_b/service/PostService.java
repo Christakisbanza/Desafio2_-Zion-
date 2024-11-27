@@ -3,13 +3,10 @@ package com.example.microservico_b.service;
 import com.example.microservico_b.client.JsonPlaceholderClient;
 import com.example.microservico_b.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.microservico_b.model.entities.Post;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.yaml.snakeyaml.reader.StreamReader;
+
+import java.util.List;
 
 @Service
 public class PostService {
@@ -20,12 +17,36 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
+    public List<Post> syncData() {
+        Integer maxId = postRepository.findAll()
+                .stream()
+                .mapToInt(Post::getId)
+                .max()
+                .orElse(0);
+
+        List<Post> posts = jsonPlaceholderClient.getPosts();
+        for (Post post : posts) {
+            maxId++;
+            post.setId(maxId);
+        }
+
+        postRepository.saveAll(posts);
+        return posts;
+    }
+
     public Post save(Post post){
+        Integer maxId = postRepository.findAll()
+                .stream()
+                .mapToInt(Post::getId)
+                .max()
+                .orElse(0);
+
+        post.setId(maxId + 1);
+
         return postRepository.save(post);
     }
 
-    public void delete(String id) {
+    public void delete(int id) {
         postRepository.deleteById(id);
     }
-
 }

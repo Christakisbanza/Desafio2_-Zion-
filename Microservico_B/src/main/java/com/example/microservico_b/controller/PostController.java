@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -25,6 +26,11 @@ public class PostController implements Serializable {
 
     @Autowired
     private PostService postService;
+
+    @PostMapping("/sync-data")
+    public List<Post> syncData() {
+        return postService.syncData();
+    }
 
     @Operation(
             summary = "Criar um novo Post",
@@ -49,7 +55,6 @@ public class PostController implements Serializable {
         return ResponseEntity.status(HttpStatus.CREATED).body(PostMapper.toDto(post));
     }
 
-
     @Operation(
             summary = "Deletar um Post",
             description = "Recurso para deletar Post",
@@ -63,7 +68,7 @@ public class PostController implements Serializable {
 
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePost(@PathVariable String id){
+    public ResponseEntity<?> deletePost(@PathVariable int id){
         try {
             postService.delete(id);
             return ResponseEntity.ok("Deleted with Success");
