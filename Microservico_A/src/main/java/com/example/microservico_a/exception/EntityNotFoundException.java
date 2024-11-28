@@ -1,4 +1,4 @@
-package com.example.microservico_b.exception;
+package com.example.microservico_a.exception;
 
 public class EntityNotFoundException extends RuntimeException {
 

@@ -1,8 +1,8 @@
-package com.example.microservico_b.controller.mapper;
+package com.example.microservico_a.controller.mapper;
 
-import com.example.microservico_b.controller.dto.PostCreateDto;
-import com.example.microservico_b.controller.dto.PostResponseDto;
-import com.example.microservico_b.model.entities.Post;
+import com.example.microservico_a.controller.dto.PostCreateDto;
+import com.example.microservico_a.controller.dto.PostResponseDto;
+import com.example.microservico_a.entities.Post;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;

@@ -1,4 +1,4 @@
-package com.example.microservico_b.config;
+package com.example.microservico_a.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

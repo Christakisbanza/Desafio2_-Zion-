@@ -1,4 +1,4 @@
-package com.example.microservico_b.controller.dto;
+package com.example.microservico_a.controller.dto;
 
 
 import lombok.AllArgsConstructor;
