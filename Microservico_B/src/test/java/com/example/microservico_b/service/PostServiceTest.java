@@ -1,6 +1,7 @@
 package com.example.microservico_b.service;
 
 import com.example.microservico_b.client.JsonPlaceholderClient;
+import com.example.microservico_b.exception.PostNotFoundException;
 import com.example.microservico_b.model.entities.Post;
 import com.example.microservico_b.repository.PostRepository;
 import org.junit.jupiter.api.Test;
@@ -43,9 +44,12 @@ public class PostServiceTest {
 
     @Test
     public void deletePost_WithInvalidId_ThrowsException() {
-        doThrow(new RuntimeException()).when(postService).delete(99);
 
-        assertThatThrownBy(() -> postService.delete(99)).isInstanceOf(RuntimeException.class);
+        doThrow(new PostNotFoundException("Post with id 9999 not found")).when(postService).delete(9999);
+
+        assertThatThrownBy(() -> postService.delete(9999))
+                .isInstanceOf(PostNotFoundException.class)
+                .hasMessage("Post with id 9999 not found");
     }
 
 }
