@@ -61,8 +61,7 @@ public class PostController implements Serializable {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Recurso deletado com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                            description = "Recurso deletado com sucesso"
                     )
             }
 
@@ -76,6 +75,7 @@ public class PostController implements Serializable {
             return new ResponseEntity("Query Error", HttpStatusCode.valueOf(504));
         }
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Post> getById(@PathVariable int id) {
         Post post = postService.buscaPorId(id);
