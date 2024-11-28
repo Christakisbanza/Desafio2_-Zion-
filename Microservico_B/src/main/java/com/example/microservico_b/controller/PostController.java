@@ -6,6 +6,7 @@ import com.example.microservico_b.controller.exception.ErrorMessage;
 import com.example.microservico_b.controller.mapper.PostMapper;
 import com.example.microservico_b.exception.PostNotFoundException;
 import com.example.microservico_b.model.entities.Post;
+import com.example.microservico_b.repository.PostRepository;
 import com.example.microservico_b.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,6 +28,13 @@ public class PostController implements Serializable {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private PostRepository postRepository;
+
+    @GetMapping
+    public List<Post> getAll() {
+        return postService.findAll();
+    }
 
     @PostMapping("/sync-data")
     public List<Post> syncData() {

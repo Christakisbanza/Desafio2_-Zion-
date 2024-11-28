@@ -18,6 +18,10 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
+
     public List<Post> syncData() {
         Integer maxId = postRepository.findAll()
                 .stream()
