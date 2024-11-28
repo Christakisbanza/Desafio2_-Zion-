@@ -1,18 +1,18 @@
 package com.example.microservico_b.controller;
 
-import com.example.microservico_b.client.JsonPlaceholderClient;
 import com.example.microservico_b.controller.dto.PostCreateDto;
 import com.example.microservico_b.controller.dto.PostResponseDto;
 import com.example.microservico_b.controller.exception.ErrorMessage;
 import com.example.microservico_b.controller.mapper.PostMapper;
+import com.example.microservico_b.exception.PostNotFoundException;
 import com.example.microservico_b.model.entities.Post;
+import com.example.microservico_b.repository.PostRepository;
 import com.example.microservico_b.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -28,15 +28,13 @@ public class PostController implements Serializable {
 
     @Autowired
     private PostService postService;
-
     @Autowired
-    private JsonPlaceholderClient jsonPlaceholderClient;
+    private PostRepository postRepository;
 
     @GetMapping
-    public List<Post> listarProdutos() {
-        return jsonPlaceholderClient.getPosts();
+    public List<Post> getAll() {
+        return postService.findAll();
     }
-
 
     @PostMapping("/sync-data")
     public List<Post> syncData() {
@@ -67,24 +65,55 @@ public class PostController implements Serializable {
     }
 
     @Operation(
+            summary = "Alter the post with id",
+            description = "Recurse for alter the post with a different id",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso alterado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "422",
+                            description = "Dados de entrada inválidos",
+                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Dados não encontrados",
+                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            }
+
+    )
+    @PutMapping("/{id}")
+    public ResponseEntity<PostResponseDto> update(@RequestBody @Valid PostCreateDto postCreateDto,@PathVariable Integer id){
+        Post post = postService.update(PostMapper.toPost(postCreateDto));
+        post.setId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(PostMapper.toDto(post));
+    }
+
+    @Operation(
             summary = "Deletar um Post",
             description = "Recurso para deletar Post",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Recurso deletado com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                            description = "Recurso deletado com sucesso"
                     )
             }
 
     )
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePost(@PathVariable Integer id){
-        try {
-            postService.deletePost(id);
-            return ResponseEntity.ok("Deleted with Success");
-        }catch(Exception ex) {
-            return new ResponseEntity("Query Error", HttpStatusCode.valueOf(504));
-        }
+    public ResponseEntity<?> deletePost(@PathVariable int id) {
+        postService.delete(id);
+        return ResponseEntity.ok("Deleted successfully");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getById(@PathVariable int id) {
+        Post post = postService.buscaPorId(id);
+        return ResponseEntity.ok(post);
     }
 }

@@ -1,8 +1,8 @@
 package com.example.microservico_b.service;
 
 import com.example.microservico_b.client.JsonPlaceholderClient;
+import com.example.microservico_b.exception.PostNotFoundException;
 import com.example.microservico_b.repository.PostRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.microservico_b.model.entities.Post;
@@ -17,6 +17,10 @@ public class PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
 
     public List<Post> syncData() {
         Integer maxId = postRepository.findAll()
@@ -47,7 +51,20 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public void deletePost(Integer id) {
-        postRepository.deleteById(id);
+    public void delete(int id) {
+        Post post = postRepository.findById(id).orElseThrow(() ->
+                new PostNotFoundException("Post with id " + id + " not found"));
+
+        postRepository.delete(post);
+    }
+
+    public Post buscaPorId(int id) {
+        return postRepository.findById(id).orElseThrow(
+                () -> new PostNotFoundException("Post not found")
+        );
+    }
+
+    public Post update(Post post) {
+       return postRepository.save(post);
     }
 }
