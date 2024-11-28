@@ -4,7 +4,6 @@ import com.example.microservico_b.controller.dto.PostCreateDto;
 import com.example.microservico_b.controller.dto.PostResponseDto;
 import com.example.microservico_b.controller.exception.ErrorMessage;
 import com.example.microservico_b.controller.mapper.PostMapper;
-import com.example.microservico_b.exception.PostNotFoundException;
 import com.example.microservico_b.model.entities.Post;
 import com.example.microservico_b.repository.PostRepository;
 import com.example.microservico_b.service.PostService;
@@ -12,10 +11,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,18 +27,56 @@ public class PostController implements Serializable {
 
     @Autowired
     private PostService postService;
-    @Autowired
-    private PostRepository postRepository;
 
+
+    @Operation(
+            summary = "Buscar todos os Posts",
+            description = "Recurso para buscar todos os Posts",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso achado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Dados não encontrados",
+                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            }
+
+    )
     @GetMapping
-    public List<Post> getAll() {
-        return postService.findAll();
+    public ResponseEntity<List<Post>> getAll() {
+        List<Post> post = postService.findAll();
+        return ResponseEntity.ok().body(post);
     }
 
+    
+
+    @Operation(
+            summary = "Api Json Place Holder",
+            description = "Recurso para inserir um Post da api Json Place Holder para o banco de dados",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Recurso inserido com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "422",
+                            description = "Dados de entrada inválidos",
+                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            }
+
+    )
     @PostMapping("/sync-data")
     public List<Post> syncData() {
         return postService.syncData();
     }
+
+
 
     @Operation(
             summary = "Criar um novo Post",
@@ -64,23 +101,20 @@ public class PostController implements Serializable {
         return ResponseEntity.status(HttpStatus.CREATED).body(PostMapper.toDto(post));
     }
 
+
+
     @Operation(
             summary = "Alter the post with id",
             description = "Recurse for alter the post with a different id",
             responses = {
                     @ApiResponse(
-                            responseCode = "200",
-                            description = "Recurso alterado com sucesso",
+                            responseCode = "204",
+                            description = "Recurso atualizado com sucesso",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
                     ),
                     @ApiResponse(
                             responseCode = "422",
                             description = "Dados de entrada inválidos",
-                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "Dados não encontrados",
                             content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
@@ -93,6 +127,8 @@ public class PostController implements Serializable {
         return ResponseEntity.status(HttpStatus.OK).body(PostMapper.toDto(post));
     }
 
+
+
     @Operation(
             summary = "Deletar um Post",
             description = "Recurso para deletar Post",
@@ -104,13 +140,31 @@ public class PostController implements Serializable {
             }
 
     )
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePost(@PathVariable int id) {
         postService.delete(id);
         return ResponseEntity.ok("Deleted successfully");
     }
 
+
+
+    @Operation(
+            summary = "Recuperar por Id",
+            description = "Achar um Post por Id",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso recuperado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Recurso não encontrado ",
+                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            }
+
+    )
     @GetMapping("/{id}")
     public ResponseEntity<Post> getById(@PathVariable int id) {
         Post post = postService.buscaPorId(id);
