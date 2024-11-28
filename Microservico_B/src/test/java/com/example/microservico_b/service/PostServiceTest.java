@@ -38,14 +38,14 @@ public class PostServiceTest {
 
     @Test
     public void deletePost_WithValidId_DoesNotThrowAnyException() {
-        assertThatCode(() -> postService.deletePost(POST.getId())).doesNotThrowAnyException();
+        assertThatCode(() -> postService.delete(POST.getId())).doesNotThrowAnyException();
     }
 
     @Test
     public void deletePost_WithInvalidId_ThrowsException() {
-        doThrow(new RuntimeException()).when(postService).deletePost(99);
+        doThrow(new RuntimeException()).when(postService).delete(99);
 
-        assertThatThrownBy(() -> postService.deletePost(99)).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> postService.delete(99)).isInstanceOf(RuntimeException.class);
     }
 
 }
