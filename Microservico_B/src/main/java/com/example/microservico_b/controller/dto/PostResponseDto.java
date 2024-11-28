@@ -10,5 +10,5 @@ import lombok.Setter;
 public class PostResponseDto {
     private String id;
     private String title;
-    private String description;
+    private String body;
 }

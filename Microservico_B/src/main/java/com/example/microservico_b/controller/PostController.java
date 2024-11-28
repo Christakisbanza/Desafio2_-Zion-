@@ -91,8 +91,7 @@ public class PostController implements Serializable {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Recurso deletado com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                            description = "Recurso deletado com sucesso"
                     )
             }
 
