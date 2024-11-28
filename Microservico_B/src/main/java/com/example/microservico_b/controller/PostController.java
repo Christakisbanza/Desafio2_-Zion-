@@ -56,6 +56,35 @@ public class PostController implements Serializable {
     }
 
     @Operation(
+            summary = "Alter the post with id",
+            description = "Recurse for alter the post with a different id",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso alterado com sucesso",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "422",
+                            description = "Dados de entrada inválidos",
+                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Dados não encontrados",
+                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            }
+
+    )
+    @PutMapping("/{id}")
+    public ResponseEntity<PostResponseDto> update(@RequestBody @Valid PostCreateDto postCreateDto,@PathVariable Integer id){
+        Post post = postService.update(PostMapper.toPost(postCreateDto));
+        post.setId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(PostMapper.toDto(post));
+    }
+
+    @Operation(
             summary = "Deletar um Post",
             description = "Recurso para deletar Post",
             responses = {
