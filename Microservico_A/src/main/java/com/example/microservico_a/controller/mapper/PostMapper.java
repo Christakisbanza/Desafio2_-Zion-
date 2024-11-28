@@ -1,4 +1,4 @@
-package com.example.microservico_b.controller.mapper;
+package com.example.microservico_a.controller.mapper;
 
 import com.example.microservico_b.controller.dto.PostCreateDto;
 import com.example.microservico_b.controller.dto.PostResponseDto;

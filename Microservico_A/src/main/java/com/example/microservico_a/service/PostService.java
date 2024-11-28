@@ -1,11 +1,9 @@
-package com.example.microservico_b.service;
+package com.example.microservico_a.service;
 
-import com.example.microservico_b.client.JsonPlaceholderClient;
-import com.example.microservico_b.exception.PostNotFoundException;
-import com.example.microservico_b.repository.PostRepository;
+import com.example.microservico_a.client.JsonPlaceholderClient;
+import com.example.microservico_a.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.microservico_b.model.entities.Post;
 
 import java.util.List;
 
@@ -18,53 +16,5 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
-    public List<Post> findAll() {
-        return postRepository.findAll();
-    }
 
-    public List<Post> syncData() {
-        Integer maxId = postRepository.findAll()
-                .stream()
-                .mapToInt(Post::getId)
-                .max()
-                .orElse(0);
-
-        List<Post> posts = jsonPlaceholderClient.getPosts();
-        for (Post post : posts) {
-            maxId++;
-            post.setId(maxId);
-        }
-
-        postRepository.saveAll(posts);
-        return posts;
-    }
-
-    public Post save(Post post){
-        Integer maxId = postRepository.findAll()
-                .stream()
-                .mapToInt(Post::getId)
-                .max()
-                .orElse(0);
-
-        post.setId(maxId + 1);
-
-        return postRepository.save(post);
-    }
-
-    public void delete(int id) {
-        Post post = postRepository.findById(id).orElseThrow(() ->
-                new PostNotFoundException("Post with id " + id + " not found"));
-
-        postRepository.delete(post);
-    }
-
-    public Post buscaPorId(int id) {
-        return postRepository.findById(id).orElseThrow(
-                () -> new PostNotFoundException("Post not found")
-        );
-    }
-
-    public Post update(Post post) {
-       return postRepository.save(post);
-    }
 }

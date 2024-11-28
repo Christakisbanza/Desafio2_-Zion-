@@ -1,4 +1,4 @@
-package com.example.microservico_b.controller.exception;
+package com.example.microservico_a.controller.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.servlet.http.HttpServletRequest;
