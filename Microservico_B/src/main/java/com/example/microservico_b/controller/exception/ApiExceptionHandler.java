@@ -1,5 +1,6 @@
 package com.example.microservico_b.controller.exception;
 
+import com.example.microservico_b.exception.PostNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,15 @@ import java.nio.file.AccessDeniedException;
 @Slf4j
 @RestControllerAdvice
 public class ApiExceptionHandler {
+
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handlePostNotFound(PostNotFoundException ex, HttpServletRequest request) {
+        log.error("Api Error - ", ex);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorMessage> argumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request, BindingResult result){
@@ -48,8 +58,4 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
 
     }
-
-
-
-
 }

@@ -4,6 +4,7 @@ import com.example.microservico_b.controller.dto.PostCreateDto;
 import com.example.microservico_b.controller.dto.PostResponseDto;
 import com.example.microservico_b.controller.exception.ErrorMessage;
 import com.example.microservico_b.controller.mapper.PostMapper;
+import com.example.microservico_b.exception.PostNotFoundException;
 import com.example.microservico_b.model.entities.Post;
 import com.example.microservico_b.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -90,21 +91,18 @@ public class PostController implements Serializable {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Recurso deletado com sucesso",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                            description = "Recurso deletado com sucesso"
                     )
             }
 
     )
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePost(@PathVariable int id){
-        try {
-            postService.deletePost(id);
-            return ResponseEntity.ok("Deleted with Success");
-        }catch(Exception ex) {
-            return new ResponseEntity("Query Error", HttpStatusCode.valueOf(504));
-        }
+    public ResponseEntity<?> deletePost(@PathVariable int id) {
+        postService.delete(id);
+        return ResponseEntity.ok("Deleted successfully");
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Post> getById(@PathVariable int id) {
         Post post = postService.buscaPorId(id);
