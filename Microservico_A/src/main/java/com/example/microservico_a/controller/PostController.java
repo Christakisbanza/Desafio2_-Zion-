@@ -46,6 +46,18 @@ public class PostController implements Serializable {
         return ResponseEntity.ok(post);
     }
 
+
+    
+    @Operation(
+            summary = "Delete by Id",
+            description = "Delete a Post by Id",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "Resource deleted successfully"
+                    )
+            }
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable int id){
         postService.deleteById(id);
