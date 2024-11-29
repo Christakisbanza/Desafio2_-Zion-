@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(name = "jsonPlaceholderClient", url = "https://jsonplaceholder.typicode.com")
+@FeignClient(name = "MS-A", url = "http://localhost:8081")
 public interface JsonPlaceholderClient {
 
-    @GetMapping("/posts")
+    @GetMapping("/api/posts")
     List<Post> getPosts();
 }

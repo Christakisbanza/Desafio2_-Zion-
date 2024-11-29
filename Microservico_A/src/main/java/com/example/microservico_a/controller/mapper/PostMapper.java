@@ -7,6 +7,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PostMapper {
 
@@ -17,4 +19,5 @@ public class PostMapper {
     public static PostResponseDto toDto(Post post){
         return new ModelMapper().map(post, PostResponseDto.class);
     }
+
 }
