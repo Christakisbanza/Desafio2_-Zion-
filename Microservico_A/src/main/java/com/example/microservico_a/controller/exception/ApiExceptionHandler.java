@@ -1,6 +1,6 @@
 package com.example.microservico_a.controller.exception;
 
-import com.example.microservico_b.exception.PostNotFoundException;
+import com.example.microservico_a.exception.PostNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -48,7 +48,7 @@ public class ApiExceptionHandler {
 
     }
 
-    @ExceptionHandler(com.example.microservico_b.exception.EntityNotFoundException.class)
+    @ExceptionHandler(com.example.microservico_a.exception.EntityNotFoundException.class)
     public ResponseEntity<ErrorMessage> entityNotFound(RuntimeException ex, HttpServletRequest request){
 
         log.error("Api Error - ", ex);
