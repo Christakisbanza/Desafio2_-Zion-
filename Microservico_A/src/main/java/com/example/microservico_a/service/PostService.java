@@ -24,7 +24,7 @@ public class PostService {
         ResponseEntity<Post> response = jsonPlaceholderClient.findById(id);
 
         if (response == null || !response.hasBody()) {
-            throw new PostNotFoundException("Value not found");
+            throw new PostNotFoundException("The value was not found");
         }
 
         return response.getBody();
