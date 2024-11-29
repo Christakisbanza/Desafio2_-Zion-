@@ -1,6 +1,7 @@
 package com.example.microservico_a.service;
 
 import com.example.microservico_a.client.JsonPlaceholderClient;
+import com.example.microservico_a.controller.dto.PostCreateDto;
 import com.example.microservico_a.entities.Post;
 import com.example.microservico_a.exception.PostNotFoundException;
 import com.example.microservico_a.repository.PostRepository;
@@ -28,5 +29,14 @@ public class PostService {
 
         return response.getBody();
     }
+
+    public Post publicPost(PostCreateDto dto){
+        ResponseEntity<Post> response = jsonPlaceholderClient.publicPost(dto);
+        if(response == null || response.getStatusCode().equals(422)){
+            throw new RuntimeException("Cannot create the post");
+        }
+        return response.getBody();
+    }
+
 
 }
