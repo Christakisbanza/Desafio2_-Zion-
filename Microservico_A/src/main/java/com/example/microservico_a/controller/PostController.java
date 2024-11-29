@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/api/posts/ms-a")
 public class PostController implements Serializable {
 
     @Autowired
@@ -45,5 +45,12 @@ public class PostController implements Serializable {
         Post post = postService.findById(id);
         return ResponseEntity.ok(post);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable int id){
+        postService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
