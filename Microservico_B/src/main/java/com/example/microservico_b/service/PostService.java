@@ -23,10 +23,8 @@ public class PostService {
     }
 
     public List<Post> syncData() {
-        Integer maxId = postRepository.findAll()
-                .stream()
-                .mapToInt(Post::getId)
-                .max()
+        Integer maxId = postRepository.findTopByOrderByIdDesc()
+                .map(Post::getId)
                 .orElse(0);
 
         List<Post> posts = jsonPlaceholderClient.getPosts();
@@ -40,7 +38,7 @@ public class PostService {
     }
 
     public Post save(Post post){
-        Integer maxId = postRepository.findAll()
+        Integer maxId = postRepository.findTopByOrderByIdDesc()
                 .stream()
                 .mapToInt(Post::getId)
                 .max()
