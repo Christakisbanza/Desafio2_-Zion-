@@ -16,8 +16,6 @@ public class PostService {
     @Autowired
     private JsonPlaceholderClient jsonPlaceholderClient;
 
-    @Autowired
-    private PostRepository postRepository;
 
     public Post findById(int id) {
         ResponseEntity<Post> response = jsonPlaceholderClient.findById(id);
@@ -27,6 +25,11 @@ public class PostService {
         }
 
         return response.getBody();
+    }
+
+    public void deleteById(int id){
+        findById(id);
+        jsonPlaceholderClient.deleteById(id);
     }
 
 }
