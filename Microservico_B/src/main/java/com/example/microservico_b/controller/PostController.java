@@ -121,10 +121,14 @@ public class PostController implements Serializable {
 
     )
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponseDto> update(@RequestBody @Valid PostCreateDto postCreateDto,@PathVariable Integer id){
-        Post post = postService.update(PostMapper.toPost(postCreateDto));
-        post.setId(id);
-        return ResponseEntity.status(HttpStatus.OK).body(PostMapper.toDto(post));
+    public ResponseEntity<PostResponseDto> update(@RequestBody @Valid PostCreateDto postCreateDto,
+                                                  @PathVariable Integer id) {
+
+        Post postToUpdate = PostMapper.toPost(postCreateDto);
+        postToUpdate.setId(id);
+        Post updatedPost = postService.update(postToUpdate);
+
+        return ResponseEntity.status(HttpStatus.OK).body(PostMapper.toDto(updatedPost));
     }
 
 
