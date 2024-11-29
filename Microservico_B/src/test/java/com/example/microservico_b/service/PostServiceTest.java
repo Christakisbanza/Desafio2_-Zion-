@@ -19,8 +19,7 @@ import static com.example.microservico_b.common.PostConstants.POST;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = PostService.class)
 @ExtendWith(MockitoExtension.class)
@@ -32,8 +31,8 @@ public class PostServiceTest {
     @MockitoBean
     private PostService postService;
 
-    @Mock
-    private PostRepository postRepository;
+
+    private PostRepository postRepository = mock(PostRepository.class);
 
 
 
@@ -44,7 +43,6 @@ public class PostServiceTest {
 
     @Test
     public void deletePost_WithInvalidId_ThrowsException() {
-
         doThrow(new PostNotFoundException("Post with id 9999 not found")).when(postService).delete(9999);
 
         assertThatThrownBy(() -> postService.delete(9999))
