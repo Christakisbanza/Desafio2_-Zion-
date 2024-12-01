@@ -1,12 +1,15 @@
 package com.example.microservico_a.controller;
+import com.example.microservico_a.controller.dto.PostCreateDto;
 import com.example.microservico_a.controller.dto.PostResponseDto;
 import com.example.microservico_a.controller.exception.ErrorMessage;
+import com.example.microservico_a.controller.mapper.PostMapper;
 import com.example.microservico_a.entities.Post;
 import com.example.microservico_a.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -65,4 +68,33 @@ public class PostController implements Serializable {
     }
 
 
+    @Operation(
+            summary = "Update Post by Id",
+            description = "Update a Post by its Id",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Post updated successfully",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Post not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid input data",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            }
+    )
+    @PutMapping("/{id}")
+    public ResponseEntity<PostResponseDto> updateById(@PathVariable int id, @RequestBody @Valid PostCreateDto postCreateDto) {
+        Post postToUpdate = PostMapper.toPost(postCreateDto);
+
+        Post updatedPost = postService.updateById(id, postToUpdate);
+
+        return ResponseEntity.ok(PostMapper.toDto(updatedPost));
+    }
 }
