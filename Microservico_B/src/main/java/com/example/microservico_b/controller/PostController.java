@@ -104,25 +104,29 @@ public class PostController implements Serializable {
 
 
     @Operation(
-            summary = "Alter the post with id",
-            description = "Recurse for alter the post with a different id",
+            summary = "Update Post by Id",
+            description = "Update a Post by its Id",
             responses = {
                     @ApiResponse(
-                            responseCode = "204",
-                            description = "Recurso atualizado com sucesso",
+                            responseCode = "200",
+                            description = "Post updated successfully",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
                     ),
                     @ApiResponse(
-                            responseCode = "422",
-                            description = "Dados de entrada inválidos",
-                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
+                            responseCode = "404",
+                            description = "Post not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid input data",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
-
     )
     @PutMapping("/{id}")
     public ResponseEntity<PostResponseDto> update(@RequestBody @Valid PostCreateDto postCreateDto,
-                                                  @PathVariable Integer id) {
+                                                  @PathVariable int id) {
 
         Post postToUpdate = PostMapper.toPost(postCreateDto);
         postToUpdate.setId(id);

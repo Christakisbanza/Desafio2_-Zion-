@@ -32,4 +32,13 @@ public class PostService {
         jsonPlaceholderClient.deleteById(id);
     }
 
+    public Post updateById(int id, Post post) {
+        findById(id);
+        Post updatedPost = jsonPlaceholderClient.update(id, post);
+
+        if (updatedPost == null) {
+            throw new PostNotFoundException("Failed to update post with id " + id);
+        }
+        return updatedPost;
+    }
 }

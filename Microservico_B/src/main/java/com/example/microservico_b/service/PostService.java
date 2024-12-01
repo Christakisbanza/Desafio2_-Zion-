@@ -63,6 +63,12 @@ public class PostService {
     }
 
     public Post update(Post post) {
-       return postRepository.save(post);
+        Post existingPost = buscaPorId(post.getId());
+
+        existingPost.setUserId(post.getUserId());
+        existingPost.setTitle(post.getTitle());
+        existingPost.setBody(post.getBody());
+
+        return postRepository.save(existingPost);
     }
 }
