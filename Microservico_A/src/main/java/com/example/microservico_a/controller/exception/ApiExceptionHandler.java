@@ -1,5 +1,6 @@
 package com.example.microservico_a.controller.exception;
 
+import com.example.microservico_a.exception.CommentNotFoundException;
 import com.example.microservico_a.exception.PostNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,15 @@ import java.nio.file.AccessDeniedException;
 @Slf4j
 @RestControllerAdvice
 public class ApiExceptionHandler {
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleCommentNotFound(PostNotFoundException ex, HttpServletRequest request) {
+        log.error("Api Error - ", ex);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
+    }
 
     @ExceptionHandler(PostNotFoundException.class)
     public ResponseEntity<ErrorMessage> handlePostNotFound(PostNotFoundException ex, HttpServletRequest request) {
