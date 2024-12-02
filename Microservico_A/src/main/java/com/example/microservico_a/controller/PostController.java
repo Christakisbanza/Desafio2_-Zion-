@@ -97,4 +97,21 @@ public class PostController implements Serializable {
 
         return ResponseEntity.ok(PostMapper.toDto(updatedPost));
     }
+    @Operation(
+            summary = "Get All Posts",
+            description = "Retrieve all posts from the external service (microservice B)",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "List of posts retrieved successfully",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                    )
+            }
+    )
+    @GetMapping
+    public ResponseEntity<List<Post>> getAllPosts() {
+        List<Post> posts = postService.getAllPosts();
+        return ResponseEntity.ok(posts);
+    }
+
 }

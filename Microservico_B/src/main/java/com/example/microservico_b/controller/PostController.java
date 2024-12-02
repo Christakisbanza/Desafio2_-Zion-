@@ -5,13 +5,11 @@ import com.example.microservico_b.controller.dto.PostResponseDto;
 import com.example.microservico_b.controller.exception.ErrorMessage;
 import com.example.microservico_b.controller.mapper.PostMapper;
 import com.example.microservico_b.model.entities.Post;
-import com.example.microservico_b.repository.PostRepository;
 import com.example.microservico_b.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -175,7 +173,7 @@ public class PostController implements Serializable {
     )
     @GetMapping("/{id}")
     public ResponseEntity<Post> getById(@PathVariable int id) {
-        Post post = postService.buscaPorId(id);
+        Post post = postService.getById(id);
         return ResponseEntity.ok(post);
     }
 }
