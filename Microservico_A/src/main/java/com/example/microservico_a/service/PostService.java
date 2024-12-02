@@ -32,6 +32,10 @@ public class PostService {
         jsonPlaceholderClient.deleteById(id);
     }
 
+    public Post save(Post post){
+        return jsonPlaceholderClient.create(post);
+    }
+
     public Post updateById(int id, Post post) {
         findById(id);
         Post updatedPost = jsonPlaceholderClient.update(id, post);
