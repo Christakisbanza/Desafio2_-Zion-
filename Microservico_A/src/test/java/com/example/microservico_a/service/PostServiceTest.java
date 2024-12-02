@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 public class PostServiceTest {
 
     @InjectMocks
-    private PostService postService; // Mockito injeta os mocks aqui automaticamente
+    private PostService postService;
 
     @Mock
     private JsonPlaceholderClient jsonPlaceholderClient;
@@ -35,7 +35,7 @@ public class PostServiceTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this); // Inicializa os mocks e @InjectMocks
+        MockitoAnnotations.openMocks(this);
         post = new Post(1, 1, "titlePost", "bodyPost");
     }
 
