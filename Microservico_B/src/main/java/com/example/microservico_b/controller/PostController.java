@@ -28,17 +28,17 @@ public class PostController implements Serializable {
 
 
     @Operation(
-            summary = "Buscar todos os Posts",
-            description = "Recurso para buscar todos os Posts",
+            summary = "Retrieve all Posts",
+            description = "Endpoint to retrieve all Posts",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Recurso achado com sucesso",
+                            description = "Posts retrieved successfully",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Dados não encontrados",
+                            description = "Data not found",
                             content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
@@ -53,17 +53,17 @@ public class PostController implements Serializable {
     
 
     @Operation(
-            summary = "Api Json Place Holder",
-            description = "Recurso para inserir um Post da api Json Place Holder para o banco de dados",
+            summary = "Sync data from JSON Placeholder API",
+            description = "Endpoint to insert Posts from the JSON Placeholder API into the database",
             responses = {
                     @ApiResponse(
                             responseCode = "201",
-                            description = "Recurso inserido com sucesso",
+                            description = "Posts inserted successfully",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
                     ),
                     @ApiResponse(
                             responseCode = "422",
-                            description = "Dados de entrada inválidos",
+                            description = "Invalid input data",
                             content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
@@ -77,17 +77,17 @@ public class PostController implements Serializable {
 
 
     @Operation(
-            summary = "Criar um novo Post",
-            description = "Recurso para criar um novo Post",
+            summary = "Create a new Post",
+            description = "Endpoint to create a new Post",
             responses = {
                     @ApiResponse(
                             responseCode = "201",
-                            description = "Recurso criado com sucesso",
+                            description = "Post created successfully",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
                     ),
                     @ApiResponse(
                             responseCode = "422",
-                            description = "Dados de entrada inválidos",
+                            description = "Invalid input data",
                             content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
@@ -136,12 +136,12 @@ public class PostController implements Serializable {
 
 
     @Operation(
-            summary = "Deletar um Post",
-            description = "Recurso para deletar Post",
+            summary = "Delete a Post",
+            description = "Endpoint to delete a Post",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Recurso deletado com sucesso"
+                            description = "Post deleted successfully"
                     )
             }
 
@@ -155,17 +155,17 @@ public class PostController implements Serializable {
 
 
     @Operation(
-            summary = "Recuperar por Id",
-            description = "Achar um Post por Id",
+            summary = "Retrieve a Post by ID",
+            description = "Endpoint to find a Post by its ID",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Recurso recuperado com sucesso",
+                            description = "Post retrieved successfully",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Recurso não encontrado ",
+                            description = "Post not found",
                             content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
                     )
             }

@@ -15,8 +15,8 @@ public class SpringDocOpenApiCongig {
         return new OpenAPI()
                 .info(
                         new Info()
-                                .title("Rest API - Desafio 2, Posts")
-                                .description("API para gestão de Posts (Publicações)")
+                                .title("Rest API - Challenge  2, Posts")
+                                .description("API for managing Posts (Publications)")
                                 .version("V1")
                                 .contact(new Contact().name("Christakis, Pedro, Felipe, André, Natanael"))
                 );

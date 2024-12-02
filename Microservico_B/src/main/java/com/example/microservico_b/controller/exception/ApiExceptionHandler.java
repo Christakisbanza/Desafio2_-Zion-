@@ -43,7 +43,7 @@ public class ApiExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(request, HttpStatus.UNPROCESSABLE_ENTITY, "Campos Inválidos", result));
+                .body(new ErrorMessage(request, HttpStatus.UNPROCESSABLE_ENTITY, "Invalid Fields", result));
 
     }
 
@@ -54,7 +54,7 @@ public class ApiExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(request, HttpStatus.FORBIDDEN, "Campos Inválidos", result));
+                .body(new ErrorMessage(request, HttpStatus.FORBIDDEN, "Invalid Fields", result));
 
     }
 

@@ -26,17 +26,17 @@ public class CommentController {
     private CommentService commentService;
 
     @Operation(
-            summary = "Buscar todos os Comentários de um Post",
-            description = "Recurso para buscar todos os Comentários de um Post",
+            summary = "Retrieve all Comments from a Post",
+            description = "Endpoint to retrieve all Comments from a Post",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Comentários encontrados com sucesso",
+                            description = "Comments successfully retrieved",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CommentResponseDto.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Post não encontrado",
+                            description = "Post not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
@@ -51,17 +51,17 @@ public class CommentController {
     }
 
     @Operation(
-            summary = "Criar um novo Comentário em um Post",
-            description = "Recurso para criar um novo Comentário em um Post",
+            summary = "Create a new Comment for a Post",
+            description = "Endpoint to create a new Comment for a Post",
             responses = {
                     @ApiResponse(
                             responseCode = "201",
-                            description = "Comentário criado com sucesso",
+                            description = "Comment successfully created",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CommentResponseDto.class))
                     ),
                     @ApiResponse(
                             responseCode = "422",
-                            description = "Dados inválidos para criação do comentário",
+                            description = "Invalid data for creating the comment",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
@@ -75,16 +75,16 @@ public class CommentController {
     }
 
     @Operation(
-            summary = "Deletar um Comentário",
-            description = "Recurso para deletar um Comentário",
+            summary = "Delete a Comment",
+            description = "Endpoint to delete a Comment",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Comentário deletado com sucesso"
+                            description = "Comment successfully deleted"
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Comentário não encontrado",
+                            description = "Comment not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
@@ -97,17 +97,17 @@ public class CommentController {
     }
 
     @Operation(
-            summary = "Atualizar um Comentário",
-            description = "Recurso para atualizar um Comentário",
+            summary = "Update a Comment",
+            description = "Endpoint to update a Comment",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Comentário atualizado com sucesso",
+                            description = "Comment successfully updated",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CommentResponseDto.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Comentário não encontrado",
+                            description = "Comment not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
@@ -126,17 +126,17 @@ public class CommentController {
 
 
     @Operation(
-            summary = "Buscar um Comentário por ID",
-            description = "Recurso para buscar um Comentário específico por ID",
+            summary = "Retrieve a Comment by ID",
+            description = "Endpoint to retrieve a specific Comment by ID",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Comentário encontrado com sucesso",
+                            description = "Comment successfully retrieved",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = CommentResponseDto.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Comentário não encontrado",
+                            description = "Comment not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))
                     )
             }
