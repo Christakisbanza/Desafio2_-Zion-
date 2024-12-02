@@ -26,6 +26,28 @@ public class PostController implements Serializable {
 
 
 
+    @Operation(
+            summary = "Create a Post",
+            description = "Resource to criete a new Post",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Resourse created with sucess",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = PostResponseDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "422",
+                            description = "Data input inválid",
+                            content = @Content(mediaType = "application/json",schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            }
+
+    )
+    @PostMapping
+    public ResponseEntity<PostResponseDto> create(@RequestBody @Valid PostCreateDto postCreateDto){
+        Post post = postService.save(PostMapper.toPost(postCreateDto));
+        return ResponseEntity.ok().body(PostMapper.toDto(post));
+    }
 
     @Operation(
             summary = "Retrieve by Id",
