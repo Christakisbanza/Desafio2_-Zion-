@@ -26,6 +26,11 @@ public class PostController implements Serializable {
 
 
 
+    @PostMapping
+    public ResponseEntity<PostResponseDto> create(@RequestBody @Valid PostCreateDto postCreateDto){
+        Post post = postService.save(PostMapper.toPost(postCreateDto));
+        return ResponseEntity.ok().body(PostMapper.toDto(post));
+    }
 
     @Operation(
             summary = "Retrieve by Id",

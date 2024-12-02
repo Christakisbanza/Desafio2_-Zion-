@@ -1,7 +1,11 @@
 package com.example.microservico_a.client;
 
+
 import com.example.microservico_a.controller.dto.CommentCreateDto;
 import com.example.microservico_a.controller.dto.CommentResponseDto;
+
+import com.example.microservico_a.controller.dto.PostCreateDto;
+
 import com.example.microservico_a.entities.Post;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +18,9 @@ public interface JsonPlaceholderClient {
 
     @GetMapping
     List<Post> getPosts();
+
+    @PostMapping
+    Post create(@RequestBody Post post);
 
     @DeleteMapping("/{id}")
     void deleteById(@PathVariable int id);
