@@ -1,7 +1,6 @@
 package com.example.microservico_b.service;
 
 import com.example.microservico_b.client.JsonPlaceholderClient;
-import com.example.microservico_b.common.PostConstants;
 import com.example.microservico_b.exception.PostNotFoundException;
 import com.example.microservico_b.model.entities.Post;
 import com.example.microservico_b.repository.PostRepository;
@@ -95,10 +94,10 @@ public class PostService2Test {
 
 
     @Test
-    public void testBuscaPorId() {
+    public void testGetById() {
         when(postRepository.findById(1)).thenReturn(Optional.of(post));
 
-        Post result = postService.buscaPorId(1);
+        Post result = postService.getById(1);
 
         assertNotNull(result);
         assertEquals("titlePost", result.getTitle());
@@ -108,10 +107,10 @@ public class PostService2Test {
     }
 
     @Test
-    public void testBuscaPorIdNotFound() {
+    public void testGetByIdNotFound() {
         when(postRepository.findById(1)).thenReturn(Optional.empty());
 
-        assertThrows(PostNotFoundException.class, () -> postService.buscaPorId(1));
+        assertThrows(PostNotFoundException.class, () -> postService.getById(1));
     }
 
     @Test

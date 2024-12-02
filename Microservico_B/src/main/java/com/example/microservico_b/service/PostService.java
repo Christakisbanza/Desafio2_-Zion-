@@ -56,14 +56,14 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    public Post buscaPorId(int id) {
+    public Post getById(int id) {
         return postRepository.findById(id).orElseThrow(
                 () -> new PostNotFoundException("Post not found")
         );
     }
 
     public Post update(Post post) {
-        Post existingPost = buscaPorId(post.getId());
+        Post existingPost = getById(post.getId());
 
         existingPost.setUserId(post.getUserId());
         existingPost.setTitle(post.getTitle());

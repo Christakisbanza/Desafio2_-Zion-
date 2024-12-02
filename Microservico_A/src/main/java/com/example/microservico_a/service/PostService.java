@@ -41,4 +41,8 @@ public class PostService {
         }
         return updatedPost;
     }
+
+    public List<Post> getAllPosts() {
+        return jsonPlaceholderClient.getPosts();
+    }
 }
