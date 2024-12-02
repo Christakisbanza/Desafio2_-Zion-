@@ -20,14 +20,12 @@ Este projeto consiste em dois microsserviços: **Microserviço A** e **Microserv
 
 ## **Fluxo de Dados**  
 1. **Microserviço A** faz uma requisição para o **Microserviço B**.  
-2. **Microserviço B** faz uma requisição HTTP para um site externo (por exemplo, uma API pública).  
+2. **Microserviço B** faz uma requisição HTTP para um site externo (https://jsonplaceholder.typicode.com).  
 3. O site externo retorna os dados, que são processados pelo **Microserviço B**.  
 4. **Microserviço B** envia os dados processados de volta para o **Microserviço A**.  
 5. **Microserviço A** recebe os dados do **Microserviço B** e realiza ações ou retornos conforme necessário.  
 
 ---
-
-## **Estrutura do Projeto**  
 
 
 Integrantes:
