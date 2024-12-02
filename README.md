@@ -1,34 +1,86 @@
-# Integração entre Microsserviços A e B  
+# Microserviços com Java Spring Boot e OpenFeign
 
-## **Descrição do Projeto**  
-Este projeto consiste em dois microsserviços: **Microserviço A** e **Microserviço B**.  
-- O **Microserviço A** consome a API do **Microserviço B**.  
-- O **Microserviço B**, por sua vez, realiza requisições para um site externo para coletar informações e processá-las.  
+## Descrição do Projeto
+
+Este projeto consiste no desenvolvimento de dois microsserviços, implementados em Java 17 utilizando Spring Boot e OpenFeign, que se comunicam entre si e com a API externa JSONPlaceholder (https://jsonplaceholder.typicode.com). O objetivo é oferecer uma solução integrada para manipulação de posts e comentários através de uma arquitetura baseada em microsserviços
+
+
+
 
 ---
 
-## **Arquitetura**  
-### **Microserviço A**  
-- Responsável por fazer requisições HTTP para o **Microserviço B** e processar as respostas.  
+## Funcionalidades
 
-### **Microserviço B**  
-- Recebe as requisições do **Microserviço A**.  
-- Acessa um site externo (como uma API pública ou página da web).  
-- Processa os dados recebidos e os envia de volta para o **Microserviço A**.  
+### **Gerenciamento de Posts**
+
+1. **Criar Post**
+   - **Endpoint:** `POST /api/posts/ms-a`
+   - **Descrição:** Cria um novo post.
+
+2. **Consultar Todos os Posts**
+   - **Endpoint:** `GET /api/posts/ms-a`
+   - **Descrição:** Lista todos os posts disponíveis.
+
+3. **Consultar Post por ID**
+   - **Endpoint:** `GET /api/posts/ms-a/{id}`
+   - **Descrição:** Recupera informações de um post específico pelo seu ID.
+
+4. **Atualizar Post por ID**
+   - **Endpoint:** `PUT /api/posts/ms-a/{id}`
+   - **Descrição:** Atualiza as informações de um post existente.
+
+5. **Excluir Post por ID**
+   - **Endpoint:** `DELETE /api/posts/ms-a/{id}`
+   - **Descrição:** Exclui um post pelo seu ID.
 
 ---
 
-## **Fluxo de Dados**  
-1. **Microserviço A** faz uma requisição para o **Microserviço B**.  
-2. **Microserviço B** faz uma requisição HTTP para um site externo (https://jsonplaceholder.typicode.com).  
-3. O site externo retorna os dados, que são processados pelo **Microserviço B**.  
-4. **Microserviço B** envia os dados processados de volta para o **Microserviço A**.  
-5. **Microserviço A** recebe os dados do **Microserviço B** e realiza ações ou retornos conforme necessário.  
+### **Gerenciamento de Comentários**
+
+1. **Criar Comentário**
+   - **Endpoint:** `POST /api/posts/{postId}/comments`
+   - **Descrição:** Cria um novo comentário para um post específico.
+
+2. **Consultar Todos os Comentários de um Post**
+   - **Endpoint:** `GET /api/posts/{postId}/comments`
+   - **Descrição:** Recupera todos os comentários de um post.
+
+3. **Consultar Comentário por ID**
+   - **Endpoint:** `GET /api/posts/{postId}/{id}`
+   - **Descrição:** Recupera informações de um comentário específico.
+
+4. **Atualizar Comentário**
+   - **Endpoint:** `PUT /api/posts/{postId}/{id}`
+   - **Descrição:** Atualiza um comentário existente.
+
+5. **Excluir Comentário**
+   - **Endpoint:** `DELETE /api/posts/{postId}/{id}`
+   - **Descrição:** Exclui um comentário específico.
 
 ---
 
+## Configuração do Projeto
 
-Integrantes:
+### **Requisitos**
+
+1. **Java 17**
+2. **Spring Boot**
+3. **Maven**
+4. **JUnit e Mockito** para testes
+5. **Swagger/OpenAPI** para documentação
+6. **MongoDB Compass** como banco
+7. Microsserviço B deve estar rodando localmente na porta `8081`.
+8. Microsserviço A deve estar rodando localmente na porta `8080`.
+
+### **Instruções para Rodar o Projeto**
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/seu-usuario/microsservico-a.git
+   cd microsservico-a
+
+2. **Execute o projeto**
+
 
 André Colossi Branco <br>
 Christakis Cyrile Tsikos Banza <br>
